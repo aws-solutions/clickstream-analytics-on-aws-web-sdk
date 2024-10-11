@@ -27,7 +27,7 @@
   },
   "author": "AWS GCR Solutions Team",
   "dependencies": {
-    "@aws-amplify/core": "^5.5.1",
+    "@aws-amplify/core": "^6.4.4",
     "@aws-crypto/sha256-browser": "^4.0.0",
     "tslib": "^2.6.0",
     "uuid": "^9.0.0"
