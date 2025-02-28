@@ -14,7 +14,8 @@
     "noEmitOnError": false,
     "importHelpers": true,
     "outDir": "lib",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowJs": true,
   },
   "include": [
     "src"
