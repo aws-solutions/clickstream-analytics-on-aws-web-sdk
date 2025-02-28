@@ -2,18 +2,18 @@
 
 ## Introduction
 
-Clickstream Web SDK can help you easily collect and report events from browser to AWS. This SDK is part of an AWS solution - [Clickstream Analytics on AWS](https://github.com/awslabs/clickstream-analytics-on-aws), which provisions data pipeline to ingest and process event data into AWS services such as S3, Redshift.
+Clickstream Web SDK can help you easily collect and report events from browser to AWS. This SDK is part of an AWS solution - [Clickstream Analytics on AWS](https://github.com/aws-solutions/clickstream-analytics-on-aws), which provisions data pipeline to ingest and process event data into AWS services such as S3, Redshift.
 
 The SDK relies on the Amplify for JS SDK Core Library and is developed according to the Amplify AnalyticsProvider interface. In addition, we've added features that automatically collect common user events and attributes (e.g., page view, first open) to simplify data collection for users.
 
-Visit our [Documentation site](https://awslabs.github.io/clickstream-analytics-on-aws/en/latest/sdk-manual/web/) to learn more about Clickstream Web SDK.
+Visit our [Documentation site](https://aws-solutions.github.io/clickstream-analytics-on-aws/en/latest/sdk-manual/web/) to learn more about Clickstream Web SDK.
 
 ## Integrate SDK
 
 ### Include SDK
 
 ```bash
-npm install @aws/clickstream-web
+$ npm install @aws/clickstream-web
 ```
 
 ### Initialize the SDK
@@ -226,7 +226,7 @@ ClickstreamAnalytics.updateConfigure({
 
 ## Implementing Clickstream Web SDK in Google Tag Manager Using Template
 
-1. Download the Clickstream SDK template file (.tpl) from the [SDK Release Page](https://github.com/awslabs/clickstream-web/releases).
+1. Download the Clickstream SDK template file (.tpl) from the [SDK Release Page](https://github.com/aws-solutions/clickstream-analytics-on-aws-web-sdk/releases).
 2. Refer to the Google Tag Manager [Import Guide](https://developers.google.com/tag-platform/tag-manager/templates#export_and_import) for instructions on importing the .tpl file as a custom template in your tag manager console.
 3. Refer to the [Use your new tag](https://developers.google.com/tag-platform/tag-manager/templates#use_your_new_tag) to add ClickstreamAnalytics tag to your container.
 4. The ClickstreamAnalytics tag currently supports four tag types:
@@ -241,21 +241,21 @@ ClickstreamAnalytics.updateConfigure({
 
 ### Integrate the `.tgz` file
 
-Clone this repository locally and execute the following script to generate `aws-clickstream-web-0.12.2.tgz` zip package, which will be located in the project root folder.
+Clone this repository locally and execute the following script to generate `aws-clickstream-web-0.12.3.tgz` zip package, which will be located in the project root folder.
 ```bash
-cd clickstream-web && npm i && npm run pack
+$ cd clickstream-web && npm i && npm run pack
 ```
 
-Copy the `aws-clickstream-web-0.12.2.tgz` into your project, then execute the script in your project root folder to install the SDK.
+Copy the `aws-clickstream-web-0.12.3.tgz` into your project, then execute the script in your project root folder to install the SDK.
 ```bash
-npm install ./aws-clickstream-web-0.12.2.tgz
+$ npm install ./aws-clickstream-web-0.12.3.tgz
 ```
-**Note**: Please correct the SDK version and change the path to where the `aws-clickstream-web-0.12.2.tgz` file is located.
+**Note**: Please correct the SDK version and change the path to where the `aws-clickstream-web-0.12.3.tgz` file is located.
 
 ### Integrate the `clickstream-web.min.js` file
 Execute the following script to generate `clickstream-web.min.js`, located in the `/dist` folder.
 ```bash
-cd clickstream-web && npm i && npm run pack
+$ cd clickstream-web && npm i && npm run pack
 ```
 Copy the `clickstream-web.min.js` into your project and add the following initial code into your `index.html`.
 
@@ -271,13 +271,22 @@ Copy the `clickstream-web.min.js` into your project and add the following initia
     })
 </script>
 ```
-You can also find the `clickstream-web.min.js` file in the [Release](https://github.com/awslabs/clickstream-web/releases) page.
+You can also find the `clickstream-web.min.js` file in the [Release](https://github.com/aws-solutions/clickstream-analytics-on-aws-web-sdk/releases) page.
 
 ### Test
 
 ```bash
-npm run test
+$ npm run test
+
+# with lint
+$ sh ./deployment/run-unit-tests.sh
 ```
+
+## Collection of operational metrics
+
+This solution collects anonymized operational metrics to help AWS improve the
+quality of features of the solution. For more information, including how to disable
+this capability, please see the [implementation guide](https://docs.aws.amazon.com/solutions/latest/clickstream-analytics-on-aws).
 
 ## Security
 

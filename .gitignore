@@ -19,5 +19,10 @@ yarn.lock
 *.tsbuildinfo
 *.tgz
 /src/config.ts
+.scannerwork/*
+deployment/open-source/
+deployment/regional-s3-assets
+deployment/global-s3-assets
+deployment/exclude-open-source-list.txt
 
 build

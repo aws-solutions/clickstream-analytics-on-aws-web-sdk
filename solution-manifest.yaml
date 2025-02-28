@@ -1,0 +1,6 @@
+id: SO0318
+name: clickstream-web
+version: v0.12.3
+cloudformation_templates: []
+build_environment:
+  build_image: 'aws/codebuild/standard:7.0'

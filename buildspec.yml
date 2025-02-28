@@ -1,0 +1,90 @@
+version: 0.2
+
+env:
+  shell: bash
+  # Define global variables
+  variables:
+    PACKAGE_VERSION: "0.12.3"
+    PACKAGE_NAME: "aws-clickstream-web"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: latest
+    commands:
+      - n 20.16.0
+  pre_build:
+    commands:
+      - echo "=== Starting Pre-Build Phase ==="
+      - echo "Installing npm dependencies..."
+      - npm i
+      - echo "Dependencies installed successfully"
+
+      - |-
+        # Quality assurance and testing block
+        echo "=== Starting Quality Checks ==="
+        
+        # Enable strict error handling
+        set -euxo pipefail
+
+        echo "Running code formatting..."
+        npm run format
+        echo "✓ Code formatting complete"
+
+        echo "Running linting checks..."
+        npm run lint
+        echo "✓ Linting complete"
+
+        echo "Running test suites..."
+        npm run test
+        
+        TEST_EXIT_CODE=$?
+        if [ $TEST_EXIT_CODE -ne 0 ]; then
+            echo "❌ Error: Test suite failed with exit code $TEST_EXIT_CODE" >&2
+            exit 1
+        fi
+        echo "✓ All tests passed successfully"
+  build:
+    commands:
+      - echo "=== Starting Build Phase @ $(date) ==="
+      - CURRENT_DIR=$(pwd)
+      - cd deployment
+      - chmod +x ./build-s3-dist.sh && ./build-s3-dist.sh --template-bucket ${TEMPLATE_OUTPUT_BUCKET} --version ${VERSION} --region ${AWS_REGION}
+      - echo "Build completed `date`"
+      - echo "Starting open-source-dist `date` in `pwd`"
+      - chmod +x ./build-open-source-dist.sh && ./build-open-source-dist.sh $SOLUTION_NAME
+      - echo "Open Source Dist completed `date`"
+      - cd $CURRENT_DIR
+      - echo "Creating distribution package..."
+      - npm run pack
+      - echo "✓ Package creation complete"
+  post_build:
+    commands:
+      - echo "=== Starting Post-Build Phase ==="
+      - |-
+        set -euxo pipefail
+        echo "Verifying package artifact..."
+
+        # Define package filename
+        PACKAGE_FILENAME="${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz"
+        echo "Package filename: ${PACKAGE_FILENAME}"
+
+        if [ ! -f "$PACKAGE_FILENAME" ]; then
+            echo "❌ Error: Package file $PACKAGE_FILENAME not found" >&2
+            exit 1
+        fi
+
+        echo "✓ Package verified successfully at $(date)"
+        echo "Build artifacts:"
+        ls -la *.tgz
+        echo "Build Summary:"
+        echo "- Node Version: $(node -v)"
+        echo "- NPM Version: $(npm -v)"
+        echo "- Build Timestamp: $(date)"
+        echo "- Package Size: $(ls -lh $PACKAGE_FILENAME | awk '{print $5}')"
+      - echo "=== Build Process Completed Successfully ==="
+artifacts:
+  exclude-paths:
+    - .nightswatch/**/*
+  files:
+    - '**/*'

@@ -390,7 +390,7 @@ const onLoadClickstreamSuccess = function () {
   });
 };
 
-const url = "https://github.com/awslabs/clickstream-web/releases/download/v0.12.2/clickstream-web.min.js";
+const url = "https://github.com/aws-solutions/clickstream-analytics-on-aws-web-sdk/releases/download/v0.12.3/clickstream-web.min.js";
 injectScript(url, onLoadClickstreamSuccess, data.gtmOnFailure, 'ClickstreamAnalytics-web');
 
 
@@ -688,7 +688,7 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "https://github.com/awslabs/*"
+                "string": "https://github.com/aws-solutions/*"
               }
             ]
           }
