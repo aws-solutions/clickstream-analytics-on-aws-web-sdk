@@ -1,6 +1,6 @@
 id: SO0318
-name: clickstream-web
-version: v0.12.3
+name: clickstream-analytics-on-aws-web-sdk
+version: v0.12.4
 cloudformation_templates: []
 build_environment:
   build_image: 'aws/codebuild/standard:7.0'
